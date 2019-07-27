@@ -1,0 +1,10 @@
+version: '3'
+services:
+  redditstream:
+    container_name: redditstream
+    build:
+      context: ./redditstream
+    volumes:
+      - './redditstream:/app'
+    env_file:
+      - reddit.env
