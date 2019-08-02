@@ -6,5 +6,28 @@ services:
       context: ./redditstream
     volumes:
       - './redditstream:/app'
+    depends_on:
+      - kafka
+      - zookeeper
+    restart: on-failure
     env_file:
       - reddit.env
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - "2181:2181"
+  kafka:
+    image: wurstmeister/kafka
+    ports:
+      - "9092"
+    depends_on:
+      - zookeeper
+    environment:
+      HOSTNAME_COMMAND: "echo $$(hostname)"
+      KAFKA_ADVERTISED_PORT: 9092
+      KAFKA_PORT: 9092
+      BROKER_ID_COMMAND: "docker inspect --format '{{ .Name }}' $$(hostname) | awk -F_ '{ printf $$NF }'"
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_CREATE_TOPICS: "reddit:1:1"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
