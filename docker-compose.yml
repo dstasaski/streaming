@@ -1,11 +1,11 @@
 version: '3'
 services:
-  redditstream:
-    container_name: redditstream
+  redditproducer:
+    container_name: redditproducer
     build:
-      context: ./redditstream
+      context: ./redditproducer
     volumes:
-      - './redditstream:/app'
+      - './redditproducer:/app'
     depends_on:
       - kafka
       - zookeeper
