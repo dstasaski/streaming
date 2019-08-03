@@ -9,13 +9,24 @@ services:
     depends_on:
       - kafka
       - zookeeper
-    restart: on-failure
     env_file:
       - reddit.env
+  twitterproducer:
+    container_name: twitterproducer
+    build:
+      context: ./twitterproducer
+    volumes:
+      - './twitterproducer:/app'
+    depends_on:
+      - kafka
+      - zookeeper
+    env_file:
+      - twitter.env
   zookeeper:
     image: wurstmeister/zookeeper
     ports:
       - "2181:2181"
+    tmpfs: "/datalog"
   kafka:
     image: wurstmeister/kafka
     ports:
@@ -28,6 +39,6 @@ services:
       KAFKA_PORT: 9092
       BROKER_ID_COMMAND: "docker inspect --format '{{ .Name }}' $$(hostname) | awk -F_ '{ printf $$NF }'"
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_CREATE_TOPICS: "reddit:1:1"
+      KAFKA_CREATE_TOPICS: "reddit:1:1,twitter:1:1"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
