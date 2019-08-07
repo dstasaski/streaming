@@ -8,12 +8,15 @@ from kafka.errors import NoBrokersAvailable
 consumer = None
 while True:
     try:
-        consumer = KafkaConsumer(topic='reddit', group_id='redditconsumer',
+        consumer = KafkaConsumer('reddit', group_id='redditconsumer',
                                  bootstrap_servers=['kafka:9092'],
-                                 value_serializer=lambda m: json.dumps(m).encode('ascii'))
+                                 value_deserializer=lambda m: json.dumps(m).encode('ascii'))
         break
     except NoBrokersAvailable:
         print("Waiting for Kafka Broker...")
         sleep(1)
 
-# TODO logic
+print('FOUND KAFKA')
+
+for message in consumer:
+    print(message.value)

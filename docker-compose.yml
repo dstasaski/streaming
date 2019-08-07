@@ -22,6 +22,16 @@ services:
       - zookeeper
     env_file:
       - twitter.env
+  redditconsumer:
+    container_name: redditconsumer
+    build:
+      context: ./redditconsumer
+    volumes:
+      - './redditconsumer:/app'
+    depends_on:
+      - kafka
+      - zookeeper
+      - redditproducer
   zookeeper:
     image: wurstmeister/zookeeper
     ports:
