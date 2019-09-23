@@ -21,10 +21,12 @@ before_install:
 
 install:
   - npm install
-  - ng build --prod
 
 script:
   - echo "skipping tests"
+
+before_deploy:
+  - ng build --prod
 
 deploy:
   provider: s3
@@ -33,3 +35,4 @@ deploy:
   bucket: "sls-streaming"
   skip_cleanup: true
   local_dir: dist
+  acl: public_read
