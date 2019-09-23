@@ -1,0 +1,25 @@
+dist: trusty
+sudo: false
+
+language: node_js
+node_js:
+  - '12.8.0'
+
+cache:
+  directories:
+    - ./client/node_modules
+
+before_install: 
+  - cd client
+
+install:
+  - npm install
+  - ng build --prod
+
+deploy:
+  provider: s3
+  access_key_id: $AWS_ACCESS_KEY_ID
+  secret_access_key: $AWS_SECRET_ACCESS_KEY
+  bucket: "sls-streaming"
+  skip_cleanup: true
+  local_dir: client/dist
