@@ -29,7 +29,6 @@ script:
 
 before_deploy:
   - ng build --prod
-  - pip3 install awscli
 
 deploy:
   provider: script
