@@ -27,11 +27,11 @@ script:
 
 before_deploy:
   - ng build --prod
+  - pip install awscli
 
 deploy:
-  provider: s3
-  access_key_id: $AWS_ACCESS_KEY_ID
-  secret_access_key: $AWS_SECRET_ACCESS_KEY
-  bucket: "sls-streaming"
+  provider: script
+  script: aws s3 sync dist/client s3://sls-streaming --region=us-east-2 --delete
   skip_cleanup: true
-  local_dir: dist/client
+  on:
+    branch: master
