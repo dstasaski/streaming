@@ -11,6 +11,8 @@ addons:
       - google-chrome
     packages:
       - google-chrome-stable
+      - "python3"
+      - "python3-pip"
 
 cache:
   directories:
@@ -27,7 +29,7 @@ script:
 
 before_deploy:
   - ng build --prod
-  - pip install awscli
+  - pip3 install awscli
 
 deploy:
   provider: script
