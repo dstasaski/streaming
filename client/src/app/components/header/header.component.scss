@@ -1,0 +1,21 @@
+.header {
+    color: rgb(7, 61, 7);
+    background: rgb(113, 180, 113);
+    margin: 0;
+    padding: 0;
+}
+
+.header h1 {
+    margin: 0;
+    padding: .75rem;
+    display: inline-block;
+}
+
+.header h3 {
+    display: inline-block;
+    padding: .75rem;
+    &:hover {
+        color: yellow;
+        transition: 0.2s;
+    }
+}
