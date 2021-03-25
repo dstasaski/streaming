@@ -4,7 +4,7 @@ idna==2.8
 kafka-python==1.4.6
 praw==6.3.1
 prawcore==1.0.1
-PyYAML==5.1.1
+PyYAML==5.4
 requests==2.22.0
 ruamel.appconfig==0.5.4
 ruamel.std.argparse==0.8.1
